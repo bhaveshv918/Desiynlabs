@@ -3,1074 +3,1655 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Desiyn Labs — Custom 3D Printing | India</title>
-  <meta name="description" content="Desiyn Labs — Premium custom 3D printing from India. Figurines, prototypes, gifts, parts. Trusted by customers in India, USA & Canada. DM on Instagram to order." />
+  <title>Desiyn Labs — Professional 3D Printing Services in India</title>
+  <meta name="description" content="Professional 3D printing services in India. Upload your STL file and get high-quality prints in PLA, Resin, PETG and more. Fast delivery across India." />
+  <meta name="keywords" content="3D printing India, custom 3D prints, STL printing service, PLA printing, resin printing India" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:        #0a0906;
-      --bg2:       #110f0a;
-      --saffron:   #e8873a;
-      --amber:     #c9782a;
-      --gold:      #d4a843;
-      --gold-lt:   #f0c96a;
-      --cream:     #f5ede0;
-      --warm:      rgba(245,237,224,0.72);
-      --muted:     rgba(245,237,224,0.38);
-      --faint:     rgba(245,237,224,0.14);
-      --border:    rgba(212,168,67,0.16);
-      --border-b:  rgba(212,168,67,0.32);
-      --red:       #c0392b;
-      --blue:      #1a73e8;
+      --orange:      #FF6B35;
+      --orange-dk:   #E5521C;
+      --orange-lt:   #FFF0EB;
+      --orange-mid:  #FFE0D3;
+      --blue:        #2563EB;
+      --bg:          #FFFFFF;
+      --bg2:         #F9FAFB;
+      --bg3:         #F3F4F6;
+      --text:        #1A1A1A;
+      --text2:       #4B5563;
+      --text3:       #9CA3AF;
+      --border:      #E5E7EB;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg:   0 10px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+      --radius:      14px;
+      --radius-sm:   8px;
+      --radius-pill: 999px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
       overflow-x: hidden;
-      cursor: default;
     }
 
-    /* Grain */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 998; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.035;
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* =============================================
+       UTILITY
+    ============================================= */
+    .container {
+      width: 100%; max-width: 1100px;
+      margin: 0 auto; padding: 0 20px;
+    }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--orange-lt);
+      color: var(--orange);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: var(--radius-pill);
+    }
+    .tag-blue {
+      background: #EFF6FF; color: var(--blue);
+    }
+    .section-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800; line-height: 1.18;
+      color: var(--text); margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text2);
+      max-width: 580px; line-height: 1.7;
+      margin-bottom: 44px;
     }
 
-    /* Warm glow */
-    .glow-tl {
-      position: fixed; top: -200px; left: -200px;
-      width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,135,58,0.06) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-      animation: glow-drift 20s ease-in-out infinite alternate;
+    /* Reveal animations */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(.16,1,.3,1),
+                  transform 0.7s cubic-bezier(.16,1,.3,1);
     }
-    .glow-br {
-      position: fixed; bottom: -200px; right: -150px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(212,168,67,0.05) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-      animation: glow-drift 26s ease-in-out infinite alternate-reverse;
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    .navbar {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
     }
-    @keyframes glow-drift {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(30px,20px) scale(1.08); }
+    .navbar.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .navbar-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 64px; gap: 24px;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 800;
+      color: var(--text); letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links {
+      display: flex; align-items: center; gap: 6px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text2);
+      padding: 7px 14px; border-radius: var(--radius-sm);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg3); }
+    .btn-nav {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: #fff !important;
+      padding: 10px 20px !important;
+      border-radius: var(--radius-sm) !important;
+      font-weight: 600 !important; font-size: 14px !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .btn-nav:hover {
+      background: var(--orange-dk) !important;
+      transform: translateY(-1px);
+      color: #fff !important;
+    }
+    .hamburger {
+      display: none; flex-direction: column;
+      gap: 5px; cursor: pointer; padding: 6px;
+      background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-mobile {
+      display: none; flex-direction: column;
+      padding: 12px 20px 20px;
+      border-top: 1px solid var(--border);
+      gap: 4px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 15px; font-weight: 500;
+      color: var(--text2); padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-mobile a:hover { background: var(--bg3); color: var(--text); }
+    .nav-mobile .btn-nav-m {
+      background: var(--orange); color: #fff;
+      text-align: center; font-weight: 700;
+      margin-top: 8px; padding: 13px 20px;
+      border-radius: var(--radius-sm);
     }
 
-    /* Top accent */
-    .top-accent {
-      position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 999;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        var(--saffron) 30%,
-        var(--gold) 50%,
-        var(--saffron) 70%,
-        transparent 100%);
-      opacity: 0; animation: fade-in 1.5s 0.5s ease forwards;
-    }
-
-    /* Corner marks */
-    .corner {
-      position: fixed; width: 22px; height: 22px; z-index: 100;
-      opacity: 0; animation: fade-in 1s 1.2s ease forwards;
-    }
-    .c-tl { top: 18px; left: 18px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
-    .c-tr { top: 18px; right: 18px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
-    .c-bl { bottom: 18px; left: 18px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
-    .c-br { bottom: 18px; right: 18px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
-    @keyframes fade-in { to { opacity: 0.35; } }
-
-    /* ══════════════════════════════
-       LAYOUT
-    ══════════════════════════════ */
-    .page {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center;
-      padding: 0 20px 60px;
-    }
-
-    /* ══════════════════════════════
-       HERO
-    ══════════════════════════════ */
-    .hero {
-      width: 100%; max-width: 800px;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+    /* =============================================
+       MAINTENANCE BANNER
+    ============================================= */
+    .maintenance-bar {
+      background: #FFF7ED;
+      border-bottom: 1px solid #FED7AA;
+      padding: 10px 20px;
       text-align: center;
-      padding: 90px 0 80px;
+      font-size: 13px; color: #92400E; font-weight: 500;
     }
+    .maintenance-bar strong { color: var(--orange); }
 
-    .made-in-india {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(212,168,67,0.07);
-      border: 1px solid var(--border-b);
-      padding: 7px 18px 7px 14px; border-radius: 999px;
-      font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 44px;
-      opacity: 0; animation: rise 0.9s 0.3s cubic-bezier(.16,1,.3,1) forwards;
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      background: linear-gradient(150deg, #FFF7F4 0%, #FFFFFF 50%, #EFF6FF 100%);
+      padding: 72px 0 64px;
+      position: relative; overflow: hidden;
     }
-    .flag {
-      font-size: 16px; line-height: 1;
+    .hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .pulse-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--saffron);
-      animation: pulse 2s ease-in-out infinite;
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 48px;
     }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange-lt); border: 1px solid #FFD0BD;
+      color: var(--orange); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: var(--radius-pill);
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    .brand {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(54px, 12vw, 104px);
-      font-weight: 400; line-height: 0.9;
-      letter-spacing: 0.04em;
-      opacity: 0; animation: rise 1s 0.48s cubic-bezier(.16,1,.3,1) forwards;
+    .hero-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800; line-height: 1.12;
+      color: var(--text); letter-spacing: -0.02em;
+      margin-bottom: 18px;
     }
-    .brand-d { color: var(--gold); }
-    .brand-labs { color: var(--cream); font-weight: 400; }
-
-    .hindi-tagline {
-      font-family: 'Noto Sans Devanagari', sans-serif;
-      font-size: 15px; font-weight: 300;
-      color: rgba(212,168,67,0.55);
-      letter-spacing: 0.05em; margin-top: 10px;
-      opacity: 0; animation: rise 1s 0.6s cubic-bezier(.16,1,.3,1) forwards;
-    }
-
-    .sep-row {
-      display: flex; align-items: center; gap: 14px;
-      margin: 26px 0; width: 280px;
-      opacity: 0; animation: rise 1s 0.68s cubic-bezier(.16,1,.3,1) forwards;
-    }
-    .sep-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border-b)); }
-    .sep-line.r { background: linear-gradient(270deg, transparent, var(--border-b)); }
-    .sep-gem { font-size: 10px; color: var(--gold); opacity: .7; }
-
-    .hero-headline {
-      font-size: clamp(11px, 2vw, 13px);
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 24px;
-      opacity: 0; animation: rise 1s 0.74s cubic-bezier(.16,1,.3,1) forwards;
-    }
-
+    .hero-title span { color: var(--orange); }
     .hero-desc {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 3.2vw, 23px);
-      font-weight: 400; font-style: italic;
-      line-height: 1.8; color: var(--muted);
-      max-width: 560px; margin-bottom: 14px;
-      opacity: 0; animation: rise 1s 0.8s cubic-bezier(.16,1,.3,1) forwards;
+      font-size: 16px; color: var(--text2);
+      line-height: 1.75; margin-bottom: 32px;
+      max-width: 480px;
     }
-    .hero-desc strong { color: var(--cream); font-style: normal; }
+    .hero-cta-row {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center; margin-bottom: 36px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: #fff;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(255,107,53,0.35);
+      border: none;
+    }
+    .btn-primary:hover {
+      background: var(--orange-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--text);
+      padding: 13px 24px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 600;
+      border: 1.5px solid var(--border);
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--orange); background: var(--orange-lt); }
 
-    .hero-subtext {
-      font-size: 12px; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--faint);
-      margin-bottom: 48px;
-      opacity: 0; animation: rise 1s 0.86s cubic-bezier(.16,1,.3,1) forwards;
+    .hero-trust {
+      display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    }
+    .htrust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text2); font-weight: 500;
+    }
+    .htrust-item svg { color: var(--orange); flex-shrink: 0; }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-3d-box {
+      background: linear-gradient(135deg, #fff 0%, #FFF0EB 100%);
+      border: 1.5px solid #FFD0BD;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .hero-3d-icon {
+      font-size: 80px; line-height: 1;
+      margin-bottom: 16px;
+      animation: float 3.5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .hero-3d-label {
+      font-size: 13px; font-weight: 600;
+      color: var(--text2); letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-3d-sub {
+      font-size: 15px; font-weight: 700;
+      color: var(--text); margin-top: 4px;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 20px;
+    }
+    .hero-pill {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 5px 14px;
+      font-size: 12px; font-weight: 600; color: var(--text2);
+    }
+    .hero-floating-badge {
+      position: absolute; top: -16px; right: -16px;
+      background: var(--orange); color: #fff;
+      border-radius: var(--radius);
+      padding: 10px 16px; font-size: 12px; font-weight: 700;
+      box-shadow: 0 4px 14px rgba(255,107,53,0.4);
+      white-space: nowrap;
+    }
+    .hero-floating-badge2 {
+      position: absolute; bottom: -16px; left: -16px;
+      background: #fff; color: var(--text);
+      border-radius: var(--radius);
+      padding: 10px 16px; font-size: 12px; font-weight: 600;
+      box-shadow: var(--shadow-md);
+      border: 1.5px solid var(--border);
+      white-space: nowrap;
     }
 
-    .cta-wrap {
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      opacity: 0; animation: rise 1s 0.94s cubic-bezier(.16,1,.3,1) forwards;
+    /* =============================================
+       STATS BAR
+    ============================================= */
+    .stats-bar {
+      background: var(--text);
+      padding: 24px 0;
     }
-
-    .btn-ig {
-      display: inline-flex; align-items: center; gap: 13px;
-      padding: 17px 48px;
-      background: transparent;
-      border: 1px solid rgba(232,135,58,0.55);
-      color: var(--saffron);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      text-decoration: none;
-      position: relative; overflow: hidden;
-      transition: color 0.4s ease, border-color 0.35s ease;
-    }
-    .btn-ig::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(120deg, var(--saffron), var(--amber));
-      transform: translateX(-102%);
-      transition: transform 0.5s cubic-bezier(.16,1,.3,1);
-    }
-    .btn-ig:hover::before { transform: translateX(0); }
-    .btn-ig:hover { color: #0a0906; border-color: var(--saffron); }
-    .btn-ig svg, .btn-ig span { position: relative; z-index: 1; }
-    .btn-ig svg { width: 17px; height: 17px; transition: transform 0.3s ease; }
-    .btn-ig:hover svg { transform: scale(1.15) rotate(-6deg); }
-
-    .ig-handle {
-      font-size: 10px; letter-spacing: 0.18em;
-      color: rgba(232,135,58,0.4); text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .ig-handle:hover { color: var(--saffron); }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Scroll indicator */
-    .scroll-cue {
-      display: flex; flex-direction: column; align-items: center; gap: 7px;
-      margin-top: 52px;
-      opacity: 0; animation: rise 1s 1.4s ease forwards;
-    }
-    .scroll-cue span {
-      font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--faint);
-    }
-    .scroll-cue-line {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: line-pulse 2.2s ease-in-out infinite;
-    }
-    @keyframes line-pulse {
-      0%,100% { opacity: .25; transform: scaleY(1); }
-      50%     { opacity: .7; transform: scaleY(1.1); }
-    }
-
-    /* ══════════════════════════════
-       TRUST BAR
-    ══════════════════════════════ */
-    .trust-bar {
-      width: 100%; max-width: 860px;
-      border: 1px solid var(--border);
+    .stats-inner {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      margin-top: 0;
+      gap: 0;
     }
-    .trust-item {
-      padding: 20px 16px; text-align: center;
-      border-right: 1px solid var(--border);
-      transition: background 0.3s ease;
+    .stat-item {
+      text-align: center; padding: 8px 16px;
+      border-right: 1px solid rgba(255,255,255,0.1);
     }
-    .trust-item:last-child { border-right: none; }
-    .trust-item:hover { background: rgba(212,168,67,0.04); }
-    .trust-icon { font-size: 20px; margin-bottom: 7px; display: block; }
-    .trust-label {
-      font-size: 9px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted);
-      line-height: 1.5;
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 28px; font-weight: 800;
+      color: var(--orange); line-height: 1;
+      margin-bottom: 4px;
     }
-    .trust-label strong { color: var(--gold-lt); display: block; font-size: 10px; }
-
-    /* ══════════════════════════════
-       SECTION SHELL
-    ══════════════════════════════ */
-    .sec {
-      width: 100%; max-width: 860px;
-      padding: 80px 0 0;
+    .stat-label {
+      font-size: 12px; color: rgba(255,255,255,0.65);
+      font-weight: 500; letter-spacing: 0.02em;
     }
 
-    .sec-label {
-      font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--saffron); margin-bottom: 10px;
-      display: flex; align-items: center; gap: 12px;
+    /* =============================================
+       TRUST SIGNALS
+    ============================================= */
+    .trust-section { padding: 72px 0; background: var(--bg); }
+
+    .payment-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      align-items: center; margin-bottom: 48px;
     }
-    .sec-label::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--border-b), transparent);
+    .payment-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--bg2); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px; font-size: 13px; font-weight: 600;
+      color: var(--text2);
+    }
+    .payment-badge .p-icon { font-size: 18px; }
+    .payment-trusted {
+      font-size: 13px; color: var(--text3); font-weight: 500;
+      padding: 8px 16px;
     }
 
-    .sec-h {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 5vw, 44px);
-      font-weight: 400; line-height: 1.18;
-      margin-bottom: 18px;
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-bottom: 48px;
     }
-    .sec-h em { color: var(--gold); font-style: italic; }
-
-    .sec-p {
-      font-size: 14px; line-height: 1.9;
-      color: var(--muted); max-width: 660px;
-      margin-bottom: 40px; letter-spacing: 0.01em;
-    }
-
-    /* ══════════════════════════════
-       FOR INDIAN CUSTOMERS
-    ══════════════════════════════ */
-    .india-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 16px;
-    }
-    .india-card {
+    .review-card {
       background: var(--bg);
-      padding: 28px 26px;
-      transition: background 0.3s ease;
-      position: relative; overflow: hidden;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
     }
-    .india-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, var(--saffron), var(--gold), transparent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.45s cubic-bezier(.16,1,.3,1);
+    .review-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
     }
-    .india-card:hover { background: rgba(232,135,58,0.03); }
-    .india-card:hover::after { transform: scaleX(1); }
-    .ic-emoji { font-size: 24px; margin-bottom: 14px; }
-    .ic-title {
-      font-size: 12px; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--cream);
-      margin-bottom: 9px; font-weight: 500;
+    .review-stars {
+      color: #F59E0B; font-size: 16px; margin-bottom: 12px;
+      letter-spacing: 2px;
     }
-    .ic-desc {
-      font-size: 13.5px; line-height: 1.78;
-      color: var(--muted);
+    .review-text {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.7; margin-bottom: 16px;
     }
-    .ic-desc strong { color: var(--gold-lt); font-weight: 500; }
+    .review-author {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .review-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--orange-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: var(--orange);
+      flex-shrink: 0;
+    }
+    .review-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .review-city { font-size: 12px; color: var(--text3); }
 
-    .india-note {
-      display: flex; align-items: flex-start; gap: 14px;
-      border: 1px solid var(--border);
-      background: rgba(212,168,67,0.04);
-      padding: 20px 22px; margin-bottom: 60px;
+    .trusted-line {
+      text-align: center; margin-top: 40px;
+      font-size: 14px; color: var(--text3);
+      display: flex; align-items: center; justify-content: center; gap: 12px;
     }
-    .india-note-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-    .india-note-text {
-      font-size: 13px; line-height: 1.8;
-      color: var(--muted);
-    }
-    .india-note-text strong { color: var(--cream); }
-
-    /* ══════════════════════════════
-       FOR INTERNATIONAL BUYERS
-    ══════════════════════════════ */
-    .intl-section {
-      width: 100%; max-width: 860px;
-      padding: 80px 0 0;
+    .trusted-line::before, .trusted-line::after {
+      content: ''; flex: 1; max-width: 120px;
+      height: 1px; background: var(--border);
     }
 
-    .intl-hero-card {
-      border: 1px solid var(--border-b);
-      background: linear-gradient(135deg, rgba(26,115,232,0.04) 0%, rgba(10,9,6,0) 60%);
-      padding: 44px 44px 40px;
-      margin-bottom: 1px;
-      position: relative; overflow: hidden;
-    }
-    .intl-hero-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-      background: linear-gradient(to bottom, var(--saffron), var(--gold));
-    }
-    .intl-flag-row {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 18px;
-    }
-    .intl-flag-row span { font-size: 22px; }
-    .intl-flag-row small {
-      font-size: 9px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .intl-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 4vw, 34px);
-      font-weight: 400; line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .intl-heading em { color: var(--gold); font-style: italic; }
-    .intl-body {
-      font-size: 14px; line-height: 1.9;
-      color: var(--muted); max-width: 620px;
-      margin-bottom: 28px;
-    }
+    /* =============================================
+       SERVICES SECTION
+    ============================================= */
+    .services-section { padding: 80px 0; background: var(--bg2); }
 
-    .intl-perks {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 60px;
-    }
-    .intl-perk {
-      background: var(--bg); padding: 22px 22px;
-      display: flex; align-items: flex-start; gap: 14px;
-      transition: background 0.3s ease;
-    }
-    .intl-perk:hover { background: rgba(212,168,67,0.03); }
-    .perk-icon { font-size: 20px; flex-shrink: 0; }
-    .perk-content {}
-    .perk-title {
-      font-size: 11px; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--cream);
-      margin-bottom: 5px; font-weight: 500;
-    }
-    .perk-desc {
-      font-size: 12.5px; line-height: 1.7;
-      color: var(--muted);
-    }
-    .perk-desc strong { color: var(--gold-lt); }
-
-    /* ══════════════════════════════
-       SERVICES GRID
-    ══════════════════════════════ */
     .services-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 60px;
+      gap: 20px;
     }
     .svc-card {
-      background: var(--bg); padding: 28px 22px;
-      transition: background 0.3s ease; position: relative; overflow: hidden;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      position: relative; overflow: hidden;
     }
     .svc-card::before {
       content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, var(--saffron), var(--gold), transparent);
-      transform: scaleX(0);
-      transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), #FFB347);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s cubic-bezier(.16,1,.3,1);
     }
-    .svc-card:hover { background: rgba(212,168,67,0.04); }
+    .svc-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: #FFD0BD;
+    }
     .svc-card:hover::before { transform: scaleX(1); }
-    .svc-emoji { font-size: 22px; margin-bottom: 13px; display: block; }
+    .svc-emoji { font-size: 32px; margin-bottom: 14px; }
     .svc-title {
-      font-size: 11px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--cream);
-      margin-bottom: 8px; font-weight: 500;
+      font-size: 16px; font-weight: 700;
+      color: var(--text); margin-bottom: 8px;
     }
     .svc-desc {
-      font-size: 12.5px; line-height: 1.75; color: var(--muted);
-      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 13.5px; color: var(--text2); line-height: 1.7;
     }
 
-    /* ══════════════════════════════
+    /* =============================================
+       FOR INDIA / INTERNATIONAL — AUDIENCE TABS
+    ============================================= */
+    .audience-section { padding: 80px 0; background: var(--bg); }
+
+    .audience-tabs {
+      display: flex; gap: 8px; margin-bottom: 36px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+    }
+    .tab-btn {
+      padding: 12px 24px; font-size: 14px; font-weight: 600;
+      color: var(--text2); cursor: pointer;
+      border: none; background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tab-btn.active {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .audience-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .aud-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; gap: 16px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .aud-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .aud-icon {
+      font-size: 28px; flex-shrink: 0;
+      width: 52px; height: 52px;
+      background: var(--orange-lt);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .aud-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .aud-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
+
+    .intl-highlight {
+      background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+      border: 1.5px solid #BFDBFE;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .intl-highlight h3 {
+      font-size: 20px; font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .intl-highlight p { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+    .intl-perks {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .intl-perk {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .intl-perk-icon { font-size: 24px; margin-bottom: 10px; }
+    .intl-perk-title { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .intl-perk-desc { font-size: 12.5px; color: var(--text2); line-height: 1.6; }
+
+    /* =============================================
        HOW IT WORKS
-    ══════════════════════════════ */
-    .steps-grid {
+    ============================================= */
+    .how-section { padding: 80px 0; background: var(--bg2); }
+
+    .steps-row {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 72px;
+      gap: 0; position: relative;
     }
-    .step {
-      background: var(--bg); padding: 26px 18px;
-      text-align: center; position: relative;
-      transition: background 0.3s ease;
+    .steps-row::before {
+      content: '';
+      position: absolute; top: 36px; left: 12.5%; right: 12.5%;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 10px, transparent 10px, transparent 20px);
+      z-index: 0;
     }
-    .step:hover { background: rgba(232,135,58,0.03); }
-    .step-n {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px; font-weight: 400;
-      color: var(--saffron); opacity: 0.18;
-      line-height: 1; margin-bottom: 12px;
+    .step-item {
+      text-align: center; padding: 0 12px;
+      position: relative; z-index: 1;
     }
-    .step-t {
-      font-size: 10.5px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--cream);
-      margin-bottom: 9px;
+    .step-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--orange); color: #fff;
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 14px rgba(255,107,53,0.35);
     }
-    .step-d {
-      font-size: 12px; color: var(--muted); line-height: 1.7;
-      font-style: italic; font-family: 'Playfair Display', serif;
+    .step-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--text); margin-bottom: 7px;
     }
-    .step-arr {
-      position: absolute; right: -8px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--gold); opacity: 0.25; font-size: 14px; z-index: 2;
-    }
-    .step:last-child .step-arr { display: none; }
-
-    /* ══════════════════════════════
-       DOMAIN SALE
-    ══════════════════════════════ */
-    .domain-sec {
-      width: 100%; max-width: 860px;
-      padding: 80px 0 0;
+    .step-desc {
+      font-size: 12.5px; color: var(--text2); line-height: 1.65;
     }
 
-    .domain-box {
-      border: 1px solid var(--border-b);
-      position: relative; overflow: hidden;
-      padding: 50px 46px;
-      background: linear-gradient(135deg, rgba(212,168,67,0.05) 0%, transparent 55%);
+    /* =============================================
+       PRICING SECTION
+    ============================================= */
+    .pricing-section { padding: 80px 0; background: var(--bg); }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-bottom: 32px;
     }
-    .domain-ribbon {
-      position: absolute; top: 22px; right: -38px;
-      background: var(--saffron); color: #0a0906;
-      font-size: 7px; letter-spacing: 0.28em; font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-      padding: 5px 56px;
-      transform: rotate(45deg);
+    .price-card {
+      background: #fff; border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      position: relative;
     }
-    .domain-watermark {
-      position: absolute; bottom: -50px; right: -20px;
-      font-family: 'Playfair Display', serif;
-      font-size: 200px; font-weight: 400;
-      color: var(--gold); opacity: 0.022;
-      line-height: 1; pointer-events: none; user-select: none;
+    .price-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: var(--orange);
+    }
+    .price-card.featured {
+      border-color: var(--orange);
+      box-shadow: 0 6px 24px rgba(255,107,53,0.18);
+    }
+    .price-popular {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--orange); color: #fff;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 16px; border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+    .price-material {
+      font-size: 18px; font-weight: 800;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .price-desc {
+      font-size: 13px; color: var(--text2);
+      margin-bottom: 20px; line-height: 1.6;
+    }
+    .price-from {
+      font-size: 12px; color: var(--text3);
+      font-weight: 500; margin-bottom: 4px;
+    }
+    .price-amount {
+      font-size: 36px; font-weight: 800;
+      color: var(--orange); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-unit { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+    .price-features {
+      list-style: none; margin-bottom: 24px;
+    }
+    .price-features li {
+      font-size: 13px; color: var(--text2);
+      padding: 5px 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--orange); font-weight: 700; flex-shrink: 0;
+    }
+    .btn-price {
+      width: 100%; padding: 12px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 700;
+      border: 2px solid var(--orange); color: var(--orange);
+      background: #fff; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-price:hover, .price-card.featured .btn-price {
+      background: var(--orange); color: #fff;
     }
 
-    .domain-eyebrow {
-      font-size: 9px; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--gold);
+    .pricing-note {
+      text-align: center; font-size: 14px; color: var(--text2);
+      background: var(--bg2); border-radius: var(--radius);
+      padding: 16px 24px; border: 1.5px solid var(--border);
+    }
+
+    /* =============================================
+       FILE UPLOAD SECTION
+    ============================================= */
+    .upload-section { padding: 80px 0; background: var(--bg2); }
+
+    .share-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .share-step-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      text-align: center;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .share-step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .share-step-num {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--orange); color: #fff;
+      width: 28px; height: 28px; border-radius: 50%;
+      font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .share-step-icon { font-size: 36px; margin-bottom: 14px; margin-top: 4px; }
+    .share-step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .share-step-desc { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+
+    /* =============================================
+       ABOUT SECTION
+    ============================================= */
+    .about-section { padding: 80px 0; background: var(--bg); }
+
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .about-photo {
+      background: linear-gradient(135deg, var(--bg2), var(--orange-lt));
+      border-radius: 20px;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-md);
+    }
+    .about-text {}
+    .about-quote {
+      font-size: 18px; font-style: italic;
+      color: var(--text2); line-height: 1.7;
+      border-left: 3px solid var(--orange);
+      padding-left: 20px; margin: 20px 0 24px;
+    }
+    .about-location {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg2); border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px; font-size: 13px; font-weight: 600;
+      color: var(--text2); margin-bottom: 20px;
+    }
+    .about-para {
+      font-size: 14px; color: var(--text2); line-height: 1.8;
       margin-bottom: 14px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .domain-eyebrow::before {
-      content: ''; width: 20px; height: 1px;
-      background: var(--gold); opacity: 0.5;
     }
 
-    .domain-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 4vw, 38px);
-      font-weight: 400; line-height: 1.22;
-      margin-bottom: 18px;
-    }
-    .domain-heading em { color: var(--gold); font-style: italic; }
+    /* =============================================
+       FAQ SECTION
+    ============================================= */
+    .faq-section { padding: 80px 0; background: var(--bg2); }
 
-    .domain-body {
-      font-size: 14px; line-height: 1.9;
-      color: var(--muted); max-width: 600px;
-      margin-bottom: 28px;
+    .faq-list {
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 8px;
     }
+    .faq-item {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: var(--orange); }
+    .faq-q {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px; cursor: pointer;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-q-text {
+      font-size: 15px; font-weight: 600; color: var(--text);
+    }
+    .faq-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px; color: var(--text2);
+      transition: background 0.2s, transform 0.3s;
+    }
+    .faq-item.open .faq-arrow {
+      background: var(--orange-lt); color: var(--orange);
+      transform: rotate(180deg);
+    }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.16,1,.3,1), padding 0.3s ease;
+      padding: 0 22px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 200px; padding: 0 22px 18px;
+    }
+    .faq-a p { font-size: 14px; color: var(--text2); line-height: 1.75; }
 
+    /* =============================================
+       DOMAIN SALE SECTION
+    ============================================= */
+    .domain-section { padding: 80px 0; background: var(--bg); }
+
+    .domain-card {
+      background: linear-gradient(135deg, #FFF7F4, #fff);
+      border: 2px solid #FFD0BD;
+      border-radius: 20px;
+      padding: 48px 48px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .domain-card::after {
+      content: '🏷️ FOR SALE';
+      position: absolute; top: 28px; right: -32px;
+      background: var(--orange); color: #fff;
+      font-size: 10px; font-weight: 800;
+      padding: 7px 56px;
+      transform: rotate(45deg);
+      letter-spacing: 0.08em;
+    }
+    .domain-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--orange-lt); border: 1.5px solid #FFD0BD;
+      color: var(--orange); font-size: 12px; font-weight: 700;
+      padding: 5px 14px; border-radius: var(--radius-pill);
+      margin-bottom: 16px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .domain-h {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800; line-height: 1.2;
+      color: var(--text); margin-bottom: 14px;
+    }
+    .domain-h span { color: var(--orange); }
+    .domain-p {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.8; max-width: 600px; margin-bottom: 24px;
+    }
     .domain-tags {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-bottom: 28px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
     }
-    .dtag {
-      padding: 8px 18px;
-      border: 1px solid var(--border-b);
-      background: rgba(212,168,67,0.07);
-      font-size: 11.5px; letter-spacing: 0.13em;
-      color: var(--gold-lt); font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      transition: background 0.3s ease, border-color 0.3s ease;
+    .domain-tag {
+      background: #fff; border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 18px; font-size: 13px; font-weight: 700;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
     }
-    .dtag:hover {
-      background: rgba(212,168,67,0.14);
-      border-color: rgba(212,168,67,0.45);
-    }
-    .dtag.star { border-color: rgba(232,135,58,0.45); background: rgba(232,135,58,0.08); color: var(--saffron); }
-
+    .domain-tag:hover { border-color: var(--orange); background: var(--orange-lt); }
+    .domain-tag.hot { border-color: var(--orange); color: var(--orange); background: var(--orange-lt); }
     .domain-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px; font-style: italic;
-      color: rgba(245,237,224,0.5); line-height: 1.75;
-      border-left: 2px solid rgba(212,168,67,0.35);
-      padding-left: 18px; margin-bottom: 32px;
+      font-size: 15px; font-style: italic;
+      color: var(--text2); line-height: 1.7;
+      border-left: 3px solid var(--orange);
+      padding-left: 16px; margin-bottom: 28px;
+      max-width: 560px;
     }
-
     .domain-chips {
-      display: flex; flex-wrap: wrap; gap: 14px;
-      margin-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;
     }
     .dchip {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 10.5px; letter-spacing: 0.1em;
-      color: var(--muted); text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600;
+      color: var(--text2); background: var(--bg2);
+      border: 1.5px solid var(--border);
+      padding: 6px 14px; border-radius: var(--radius-pill);
     }
-    .dchip-dot {
-      width: 4px; height: 4px;
-      background: var(--saffron); transform: rotate(45deg);
-    }
+    .dchip::before { content: '✓'; color: var(--orange); }
 
-    .btn-domain {
-      display: inline-flex; align-items: center; gap: 11px;
-      padding: 14px 38px;
-      border: 1px solid rgba(212,168,67,0.4);
-      color: var(--gold-lt);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px; letter-spacing: 0.2em;
-      text-transform: uppercase; text-decoration: none;
-      position: relative; overflow: hidden;
-      transition: color 0.35s ease, border-color 0.35s ease;
+    /* =============================================
+       CTA BANNER
+    ============================================= */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
+      padding: 72px 0;
+      text-align: center;
     }
-    .btn-domain::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: var(--gold);
-      transform: translateX(-102%);
-      transition: transform 0.5s cubic-bezier(.16,1,.3,1);
+    .cta-banner h2 {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800; color: #fff;
+      margin-bottom: 12px;
     }
-    .btn-domain:hover::before { transform: translateX(0); }
-    .btn-domain:hover { color: #0a0906; border-color: var(--gold); }
-    .btn-domain span { position: relative; z-index: 1; }
+    .cta-banner p {
+      font-size: 16px; color: rgba(255,255,255,0.85);
+      margin-bottom: 32px;
+    }
+    .cta-banner-btns {
+      display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--orange);
+      padding: 14px 32px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .btn-outline-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #fff;
+      padding: 13px 28px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700;
+      border: 2px solid rgba(255,255,255,0.6);
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-    /* ══════════════════════════════
+    /* =============================================
        FOOTER
-    ══════════════════════════════ */
-    .footer {
-      width: 100%; max-width: 860px;
-      margin-top: 80px;
-      border-top: 1px solid var(--border);
-      padding: 36px 0 0;
+    ============================================= */
+    .footer { background: var(--text); padding: 60px 0 0; }
+
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px; padding-bottom: 48px;
     }
-    .footer-top {
-      display: flex; flex-wrap: wrap;
-      justify-content: space-between; align-items: flex-start;
-      gap: 28px; margin-bottom: 28px;
+    .footer-brand-name {
+      font-size: 22px; font-weight: 800;
+      color: #fff; margin-bottom: 10px; letter-spacing: -0.02em;
     }
-    .footer-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px; font-weight: 400;
-      letter-spacing: 0.06em; color: var(--cream);
-    }
-    .footer-brand span { color: var(--gold); }
+    .footer-brand-name span { color: var(--orange); }
     .footer-tagline {
-      font-family: 'Noto Sans Devanagari', sans-serif;
-      font-size: 11px; color: rgba(212,168,67,0.4);
-      margin-top: 4px; letter-spacing: 0.04em;
+      font-size: 13px; color: rgba(255,255,255,0.5);
+      line-height: 1.7; margin-bottom: 20px;
     }
-    .footer-nav {
-      display: flex; flex-direction: column; gap: 10px;
+    .footer-contact-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
     }
-    .footer-nav a {
-      font-size: 11px; letter-spacing: 0.18em;
-      text-transform: uppercase; text-decoration: none;
-      color: var(--muted); transition: color 0.3s ease;
+    .footer-contact-item a { color: var(--orange); transition: color 0.2s; }
+    .footer-contact-item a:hover { color: var(--orange-dk); }
+    .footer-col-title {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 16px;
     }
-    .footer-nav a:hover { color: var(--gold); }
-    .footer-contact {
-      font-size: 12px; color: var(--muted); line-height: 1.9;
+    .footer-links {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
     }
-    .footer-contact a {
-      color: var(--saffron); text-decoration: none;
-      transition: color 0.3s ease;
+    .footer-links a {
+      font-size: 13.5px; color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
     }
-    .footer-contact a:hover { color: var(--gold); }
+    .footer-links a:hover { color: var(--orange); }
     .footer-bottom {
-      border-top: 1px solid rgba(212,168,67,0.07);
-      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 0;
       display: flex; flex-wrap: wrap;
-      justify-content: space-between; align-items: center;
-      gap: 10px;
+      justify-content: space-between; align-items: center; gap: 10px;
     }
     .footer-copy {
-      font-size: 9px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--faint);
+      font-size: 12.5px; color: rgba(255,255,255,0.35);
     }
     .footer-flags {
       display: flex; align-items: center; gap: 6px;
-      font-size: 14px;
-    }
-    .footer-flags span {
-      font-size: 9px; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--faint);
+      font-size: 14px; color: rgba(255,255,255,0.35);
+      font-size: 12px;
     }
 
-    /* ══════════════════════════════
-       REVEAL ANIMATIONS
-    ══════════════════════════════ */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.85s cubic-bezier(.16,1,.3,1),
-                  transform 0.85s cubic-bezier(.16,1,.3,1);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: 0.08s; }
-    .d2 { transition-delay: 0.16s; }
-    .d3 { transition-delay: 0.24s; }
-    .d4 { transition-delay: 0.32s; }
-
-    /* ══════════════════════════════
-       DIVIDER
-    ══════════════════════════════ */
-    .section-divider {
-      width: 100%; max-width: 860px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-b), transparent);
-      margin-top: 80px;
-    }
-
-    /* ══════════════════════════════
+    /* =============================================
        RESPONSIVE
-    ══════════════════════════════ */
-    @media (max-width: 680px) {
-      .trust-bar { grid-template-columns: 1fr 1fr; }
-      .trust-item:nth-child(2) { border-right: none; }
-      .trust-item:nth-child(3),
-      .trust-item:nth-child(4) { border-top: 1px solid var(--border); }
-      .india-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .steps-grid { grid-template-columns: 1fr 1fr; }
-      .step-arr { display: none; }
-      .intl-perks { grid-template-columns: 1fr; }
-      .domain-box { padding: 36px 24px; }
-      .domain-ribbon { display: none; }
-      .footer-top { flex-direction: column; }
+    ============================================= */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
-    @media (max-width: 460px) {
-      .corner { display: none; }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .steps-row { grid-template-columns: 1fr 1fr; }
+      .steps-row::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto 32px; }
+      .share-cards { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { display: none; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .intl-perks { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .domain-card { padding: 32px 24px; }
+      .domain-card::after { display: none; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 480px) {
       .services-grid { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
-      .trust-bar { grid-template-columns: 1fr 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .intl-perks { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-cta-row .btn-primary,
+      .hero-cta-row .btn-secondary { width: 100%; justify-content: center; }
+      .cta-banner-btns .btn-white,
+      .cta-banner-btns .btn-outline-white { width: 100%; justify-content: center; }
     }
   </style>
 </head>
-<body>
+<body id="top">
 
-  <div class="glow-tl"></div>
-  <div class="glow-br"></div>
-  <div class="top-accent"></div>
-  <div class="corner c-tl"></div>
-  <div class="corner c-tr"></div>
-  <div class="corner c-bl"></div>
-  <div class="corner c-br"></div>
+  <!-- ══ MAINTENANCE BANNER ══ -->
+  <div class="maintenance-bar">
+    🚧 <strong>Website Under Maintenance</strong> — Our full site is coming soon. You can still <a href="https://instagram.com/desiynlabs.in" style="color:var(--orange);font-weight:700;" target="_blank">contact us on Instagram</a> to place orders.
+  </div>
 
-  <div class="page">
-
-    <!-- ══ HERO ══ -->
-    <section class="hero">
-
-      <div class="made-in-india">
-        <span class="flag">🇮🇳</span>
-        Made in India &nbsp;·&nbsp; Delivering Worldwide
-        <span class="pulse-dot"></span>
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="#top" class="nav-logo">Desiyn<span>Labs</span></a>
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#upload">Share a File</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://instagram.com/desiynlabs.in" target="_blank" class="btn-nav">Get a Quote →</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-
-      <h1 class="brand">
-        <span class="brand-d">D</span>esiyn<br /><span class="brand-labs">Labs</span>
-      </h1>
-
-      <div class="hindi-tagline">Custom 3D Printing Services</div>
-
-      <div class="sep-row">
-        <div class="sep-line"></div>
-        <span class="sep-gem">✦</span>
-        <div class="sep-line r"></div>
-      </div>
-
-      <p class="hero-headline">Website Under Maintenance — We'll be back soon</p>
-
-      <p class="hero-desc">
-        Desiyn Labs crafts <strong>custom 3D printed products</strong> —
-        from personalised gifts to engineering prototypes.
-        Based in India. Trusted by customers across India,
-        USA & Canada.
-      </p>
-
-      <p class="hero-subtext">Figurines · Prototypes · Gifts · Parts · Home Décor · Everything Custom</p>
-
-      <div class="cta-wrap">
-        <a class="btn-ig" href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-          </svg>
-          <span>Order or Enquire on Instagram</span>
-        </a>
-        <a class="ig-handle" href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">@desiynlabs.in</a>
-      </div>
-
-      <div class="scroll-cue">
-        <span>Explore</span>
-        <div class="scroll-cue-line"></div>
-      </div>
-
-    </section>
-
-    <!-- ══ TRUST BAR ══ -->
-    <div class="trust-bar reveal">
-      <div class="trust-item">
-        <span class="trust-icon">🇮🇳</span>
-        <div class="trust-label"><strong>Based in India</strong>Local pickup + pan-India shipping</div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon">✈️</span>
-        <div class="trust-label"><strong>Ships Worldwide</strong>USA, Canada & more</div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon">💬</span>
-        <div class="trust-label"><strong>DM to Order</strong>Quick replies on Instagram</div>
-      </div>
-      <div class="trust-item">
-        <span class="trust-icon">🎨</span>
-        <div class="trust-label"><strong>100% Custom</strong>Nothing off-the-shelf</div>
+      <div class="nav-mobile" id="nav-mobile">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#upload">Share a File</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://instagram.com/desiynlabs.in" target="_blank" class="btn-nav-m">Get a Quote on Instagram →</a>
       </div>
     </div>
+  </nav>
 
-    <!-- ══ FOR INDIAN CUSTOMERS ══ -->
-    <section class="sec">
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Made in INDIA &nbsp;·&nbsp; Ships Worldwide
+          </div>
+          <h1 class="hero-title">
+            Custom 3D Prints,<br /><span>Delivered to You</span>
+          </h1>
+          <p class="hero-desc">
+            From personalised gifts to engineering prototypes — Desiyn Labs brings your ideas to life with professional-grade 3D printing. Order from anywhere in India or overseas.
+          </p>
+          <div class="hero-cta-row">
+            <a class="btn-primary" href="https://instagram.com/desiynlabs.in" target="_blank">
+              📩 &nbsp;Order on Instagram
+            </a>
+            <a class="btn-secondary" href="#upload">
+              📁 &nbsp;Share Your File
+            </a>
+          </div>
+          <div class="hero-trust">
+            <div class="htrust-item">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+              FDM &amp; Resin Printing
+            </div>
+            <div class="htrust-item">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+              Pan-India Delivery
+            </div>
+            <div class="htrust-item">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+              Pay via UPI / Card
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-floating-badge">🚀 3-Day Turnaround</div>
+          <div class="hero-3d-box">
+            <div class="hero-3d-icon">🖨️</div>
+            <div class="hero-3d-label">Professional Grade</div>
+            <div class="hero-3d-sub">FDM + Resin Printing</div>
+            <div class="hero-pills">
+              <div class="hero-pill">PLA</div>
+              <div class="hero-pill">PETG</div>
+              <div class="hero-pill">Resin</div>
+              <div class="hero-pill">ABS</div>
+              <div class="hero-pill">ASA</div>
+            </div>
+          </div>
+          <div class="hero-floating-badge2">INDIA Based</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STATS BAR ══ -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Orders Delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Materials Available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3 Day</div>
+          <div class="stat-label">Avg. Turnaround</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">INDIA 🇺🇸 🇨🇦</div>
+          <div class="stat-label">India + International</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TRUST SIGNALS ══ -->
+  <section class="trust-section" id="trust">
+    <div class="container">
       <div class="reveal">
-        <div class="sec-label">भारत के लिए — For India</div>
-        <h2 class="sec-h">Apna design, <em>apna product</em></h2>
-        <p class="sec-p">
-          Whether you're a student in Pune, a small business owner in Delhi, or a parent in Bengaluru looking for a unique birthday gift — we've got you. No minimums, no complicated process. Just DM us your idea and we'll handle the rest. Payments via UPI, bank transfer, or whatever works for you.
-        </p>
+        <div class="section-label">Why Customers Trust Us</div>
+        <h2 class="section-title">Trusted by customers<br />across India & beyond</h2>
       </div>
 
-      <div class="india-grid">
-        <div class="india-card reveal d1">
-          <div class="ic-emoji">🎁</div>
-          <div class="ic-title">Custom Gifts & Keepsakes</div>
-          <p class="ic-desc">Birthday gifts, anniversary surprises, farewell presents — we make <strong>one-of-a-kind personalised items</strong> that no Amazon seller can offer. Nameplates, photo-relief plaques, custom figurines of your loved ones.</p>
+      <div class="payment-row reveal">
+        <div class="payment-badge"><span class="p-icon">💳</span> UPI</div>
+        <div class="payment-badge"><span class="p-icon">📱</span> GPay / PhonePe / Paytm</div>
+        <div class="payment-badge"><span class="p-icon">💰</span> Razorpay</div>
+        <div class="payment-badge"><span class="p-icon">🏦</span> Bank Transfer</div>
+        <div class="payment-badge"><span class="p-icon">💵</span> International Cards</div>
+        <div class="payment-trusted">All major payment methods accepted</div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card reveal reveal-d1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Got my engineering project model made in 2 days. Quality was excellent and the price was very reasonable. Highly recommend for students!"</p>
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div>
+              <div class="review-name">Arjun M.</div>
+              <div class="review-city">Pune, Maharashtra</div>
+            </div>
+          </div>
         </div>
-        <div class="india-card reveal d2">
-          <div class="ic-emoji">🏫</div>
-          <div class="ic-title">Students & Colleges</div>
-          <p class="ic-desc">Engineering projects, architecture models, science fair prototypes, robotics parts — we help students <strong>turn their ideas into real, holdable objects</strong> at affordable prices.</p>
+        <div class="review-card reveal reveal-d2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Ordered a custom figurine as a birthday gift for my son. Came out perfect! The detailing was amazing. Will definitely order again."</p>
+          <div class="review-author">
+            <div class="review-avatar">P</div>
+            <div>
+              <div class="review-name">Priya S.</div>
+              <div class="review-city">Bengaluru, Karnataka</div>
+            </div>
+          </div>
         </div>
-        <div class="india-card reveal d1">
-          <div class="ic-emoji">🏪</div>
-          <div class="ic-title">Small Businesses</div>
-          <p class="ic-desc">Custom display stands, branded props, product mockups, signage, and more. <strong>No MOQ.</strong> Whether you need 1 piece or 100, we're here. Perfect for Instagram sellers and local brands.</p>
-        </div>
-        <div class="india-card reveal d2">
-          <div class="ic-emoji">🏠</div>
-          <div class="ic-title">Home Décor & More</div>
-          <p class="ic-desc">Customised nameplates for your home, Diwali décor, idols, wall art, cable organizers, planters — made exactly the way you want. <strong>Delivered to your door.</strong></p>
+        <div class="review-card reveal reveal-d3">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Shipped to Canada and the package arrived safely. Great communication throughout. India-made quality at a fraction of local prices here!"</p>
+          <div class="review-author">
+            <div class="review-avatar">R</div>
+            <div>
+              <div class="review-name">Rahul K.</div>
+              <div class="review-city">Toronto, Canada</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="india-note reveal">
-        <div class="india-note-icon">💳</div>
-        <div class="india-note-text">
-          <strong>Easy payments, no hassle.</strong> We accept UPI (GPay, PhonePe, Paytm), bank transfer, and cash on local pickup. Pricing is always transparent — no hidden charges. Just honest work at honest prices.
-        </div>
-      </div>
-    </section>
+      <div class="trusted-line">INDIA &amp; Worldwide — Trusted by customers across India, USA, Canada &amp; UK</div>
+    </div>
+  </section>
 
-    <div class="section-divider"></div>
-
-    <!-- ══ FOR INTERNATIONAL ══ -->
-    <section class="intl-section">
+  <!-- ══ SERVICES ══ -->
+  <section class="services-section" id="services">
+    <div class="container">
       <div class="reveal">
-        <div class="sec-label">For USA, Canada & Beyond 🌍</div>
-      </div>
-
-      <div class="intl-hero-card reveal">
-        <div class="intl-flag-row">
-          <span>🇺🇸</span><span>🇨🇦</span><span>🇬🇧</span><span>🇦🇺</span>
-          <small>International Orders Welcome</small>
-        </div>
-        <h2 class="intl-heading">
-          Premium 3D printing from India —<br /><em>world-class quality, honest pricing</em>
-        </h2>
-        <p class="intl-body">
-          India's manufacturing precision + our passion for design = products that punch well above their price point. We work with collectors, indie creators, cosplay enthusiasts, startup founders, and product designers across North America and Europe. Expect professional communication, progress updates, and secure international shipping on every order.
-        </p>
-      </div>
-
-      <div class="intl-perks reveal">
-        <div class="intl-perk d1">
-          <div class="perk-icon">📦</div>
-          <div class="perk-content">
-            <div class="perk-title">International Shipping</div>
-            <p class="perk-desc">We ship to USA, Canada, UK, Australia and more via tracked couriers. <strong>Safe packaging guaranteed.</strong></p>
-          </div>
-        </div>
-        <div class="intl-perk d2">
-          <div class="perk-icon">💵</div>
-          <div class="perk-content">
-            <div class="perk-title">India Pricing = Your Advantage</div>
-            <p class="perk-desc">Get <strong>high-quality 3D prints at a fraction</strong> of what US/Canada studios charge. Same quality. Way better value.</p>
-          </div>
-        </div>
-        <div class="intl-perk d3">
-          <div class="perk-icon">🔬</div>
-          <div class="perk-content">
-            <div class="perk-title">FDM + Resin Printing</div>
-            <p class="perk-desc">From <strong>engineering-grade PETG, ABS, ASA</strong> to ultra-detailed resin for miniatures and figurines — we use the right tech for your project.</p>
-          </div>
-        </div>
-        <div class="intl-perk d4">
-          <div class="perk-icon">🎯</div>
-          <div class="perk-content">
-            <div class="perk-title">Prototype to Production</div>
-            <p class="perk-desc">Working on a product? We handle <strong>rapid prototyping for startups and inventors</strong> — from idea to physical sample, fast.</p>
-          </div>
-        </div>
-        <div class="intl-perk d1">
-          <div class="perk-icon">🧩</div>
-          <div class="perk-content">
-            <div class="perk-title">Cosplay & Collectibles</div>
-            <p class="perk-desc">Anime figures, game characters, prop replicas, display models — <strong>detailed, post-processed, and ready to paint</strong> or display as-is.</p>
-          </div>
-        </div>
-        <div class="intl-perk d2">
-          <div class="perk-icon">✉️</div>
-          <div class="perk-content">
-            <div class="perk-title">Clear Communication</div>
-            <p class="perk-desc">Time zone differences? No problem. We respond promptly and share <strong>progress photos and design previews</strong> before printing.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ SERVICES ══ -->
-    <section class="sec">
-      <div class="reveal">
-        <div class="sec-label">What We Print</div>
-        <h2 class="sec-h">Every category. <em>Every vision.</em></h2>
-        <p class="sec-p">
-          No template catalogue here. Everything is made specifically for you. Here's what we most commonly create — but if your idea isn't listed, just ask. We love unusual challenges.
-        </p>
+        <div class="section-label">What We Print</div>
+        <h2 class="section-title">Every category. Every vision.</h2>
+        <p class="section-sub">No catalogue. No templates. Everything made specifically for you — send us your idea and we'll bring it to life.</p>
       </div>
       <div class="services-grid">
-        <div class="svc-card reveal d1">
-          <span class="svc-emoji">⚙️</span>
+        <div class="svc-card reveal reveal-d1">
+          <div class="svc-emoji">⚙️</div>
           <div class="svc-title">Parts & Prototypes</div>
-          <p class="svc-desc">Functional parts, replacements, jigs, mechanical prototypes in PETG, ABS, ASA, PLA.</p>
+          <p class="svc-desc">Functional parts, replacements, jigs, mechanical prototypes in PETG, ABS, ASA. Ideal for engineers, startups, and students.</p>
         </div>
-        <div class="svc-card reveal d2">
-          <span class="svc-emoji">🎭</span>
+        <div class="svc-card reveal reveal-d2">
+          <div class="svc-emoji">🎭</div>
           <div class="svc-title">Figurines & Miniatures</div>
-          <p class="svc-desc">High-detail resin prints of characters, models, anime figures, busts, trophies.</p>
+          <p class="svc-desc">High-detail resin prints of characters, anime figures, busts, scale models and trophies with smooth museum-quality finishes.</p>
         </div>
-        <div class="svc-card reveal d3">
-          <span class="svc-emoji">🏠</span>
-          <div class="svc-title">Home & Décor</div>
-          <p class="svc-desc">Custom nameplates, sculptures, planters, organisers, festive décor items.</p>
+        <div class="svc-card reveal reveal-d3">
+          <div class="svc-emoji">🏠</div>
+          <div class="svc-title">Home Décor</div>
+          <p class="svc-desc">Custom nameplates, sculptures, planters, organisers and festive décor — beautiful utility, designed just for you.</p>
         </div>
-        <div class="svc-card reveal d1">
-          <span class="svc-emoji">🎁</span>
+        <div class="svc-card reveal reveal-d1">
+          <div class="svc-emoji">🎁</div>
           <div class="svc-title">Personalised Gifts</div>
-          <p class="svc-desc">Photo reliefs, name displays, custom keychains, one-of-a-kind gift items.</p>
+          <p class="svc-desc">Photo reliefs, name displays, custom keychains, desk trophies — gifts that no Amazon seller can offer.</p>
         </div>
-        <div class="svc-card reveal d2">
-          <span class="svc-emoji">🏗️</span>
+        <div class="svc-card reveal reveal-d2">
+          <div class="svc-emoji">🏗️</div>
           <div class="svc-title">Architectural Models</div>
-          <p class="svc-desc">Scale models, site models, terrain maps for architects, students, exhibitions.</p>
+          <p class="svc-desc">Scale models, site models, terrain maps for architects, interior designers, civil engineers and students.</p>
         </div>
-        <div class="svc-card reveal d3">
-          <span class="svc-emoji">✦</span>
+        <div class="svc-card reveal reveal-d3">
+          <div class="svc-emoji">✨</div>
           <div class="svc-title">Fully Custom</div>
-          <p class="svc-desc">Something else entirely? DM us. If it can be designed, we will print it. No weird requests judged.</p>
+          <p class="svc-desc">Something unusual? We love a challenge. DM us your idea — if it can be designed, we will print it. No weird requests judged.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ══ HOW IT WORKS ══ -->
-    <section class="sec">
+  <!-- ══ AUDIENCE TABS ══ -->
+  <section class="audience-section" id="for-you">
+    <div class="container">
       <div class="reveal">
-        <div class="sec-label">The Process</div>
-        <h2 class="sec-h">Simple as <em>1 – 2 – 3 – Done</em></h2>
+        <div class="section-label">For Every Customer</div>
+        <h2 class="section-title">Whether you're in India<br />or ordering from abroad</h2>
       </div>
-      <div class="steps-grid reveal">
-        <div class="step">
-          <div class="step-n">01</div>
-          <div class="step-t">DM Your Idea</div>
-          <p class="step-d">Send us a message on Instagram with your idea, sketch, reference image, or even a rough description. No file required to get started.</p>
-          <div class="step-arr">›</div>
-        </div>
-        <div class="step">
-          <div class="step-n">02</div>
-          <div class="step-t">Design & Quote</div>
-          <p class="step-d">We prepare or review the 3D model, suggest materials and finishing options, and give you a fair, transparent price. No surprises.</p>
-          <div class="step-arr">›</div>
-        </div>
-        <div class="step">
-          <div class="step-n">03</div>
-          <div class="step-t">We Print It</div>
-          <p class="step-d">Into production it goes. We share preview photos so you can approve before final delivery. Quality checked before packing.</p>
-          <div class="step-arr">›</div>
-        </div>
-        <div class="step">
-          <div class="step-n">04</div>
-          <div class="step-t">Delivered to You</div>
-          <p class="step-d">Shipped pan-India or internationally, securely packaged. Local pickup available too. Your product, exactly as imagined.</p>
-        </div>
+      <div class="audience-tabs reveal">
+        <button class="tab-btn active" data-tab="india">INDIA</button>
+        <button class="tab-btn" data-tab="intl">🌍 &nbsp;For USA / Canada / International</button>
       </div>
-    </section>
 
-    <!-- ══ DOMAIN SALE ══ -->
-    <section class="domain-sec">
+      <div class="tab-panel active" id="tab-india">
+        <div class="audience-grid">
+          <div class="aud-card reveal reveal-d1">
+            <div class="aud-icon">🎁</div>
+            <div>
+              <div class="aud-title">Custom Gifts & Keepsakes</div>
+              <p class="aud-desc">Birthday gifts, anniversary surprises, farewell presents — personalised items that no Amazon seller can match. Nameplates, photo reliefs, custom figurines.</p>
+            </div>
+          </div>
+          <div class="aud-card reveal reveal-d2">
+            <div class="aud-icon">🏫</div>
+            <div>
+              <div class="aud-title">Students & Colleges</div>
+              <p class="aud-desc">Engineering projects, architecture models, science fair prototypes — we help students turn ideas into real, holdable objects at affordable prices.</p>
+            </div>
+          </div>
+          <div class="aud-card reveal reveal-d1">
+            <div class="aud-icon">🏪</div>
+            <div>
+              <div class="aud-title">Small Businesses</div>
+              <p class="aud-desc">Custom display stands, branded props, product mockups, signage. No MOQ — perfect for Instagram sellers and local brands.</p>
+            </div>
+          </div>
+          <div class="aud-card reveal reveal-d2">
+            <div class="aud-icon">💳</div>
+            <div>
+              <div class="aud-title">Easy Payments</div>
+              <p class="aud-desc">UPI (GPay, PhonePe, Paytm), bank transfer, cash on pickup. Transparent pricing, no hidden charges. Honest work at honest prices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-intl">
+        <div class="intl-highlight reveal">
+          <div class="tag tag-blue" style="margin-bottom:12px;">🌍 International Customers</div>
+          <h3>Premium 3D printing from India — world-class quality, honest pricing</h3>
+          <p style="margin-top:10px;">India's manufacturing precision + our passion for design = products that punch well above their price point. We work with collectors, cosplay enthusiasts, startup founders and product designers across North America and Europe.</p>
+        </div>
+        <div class="intl-perks reveal">
+          <div class="intl-perk reveal-d1">
+            <div class="intl-perk-icon">📦</div>
+            <div class="intl-perk-title">International Shipping</div>
+            <p class="intl-perk-desc">Ships to USA, Canada, UK, Australia via tracked couriers. Safe packaging guaranteed on every order.</p>
+          </div>
+          <div class="intl-perk reveal-d2">
+            <div class="intl-perk-icon">💵</div>
+            <div class="intl-perk-title">India Pricing = Your Advantage</div>
+            <p class="intl-perk-desc">High-quality prints at a fraction of what US/Canada studios charge. Same quality. Way better value.</p>
+          </div>
+          <div class="intl-perk reveal-d3">
+            <div class="intl-perk-icon">✉️</div>
+            <div class="intl-perk-title">Clear Communication</div>
+            <p class="intl-perk-desc">Time zone differences? No problem. We respond promptly and share progress photos before printing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:52px;">
+        <div class="section-label" style="justify-content:center;display:flex;">The Process</div>
+        <h2 class="section-title">Simple as 1 – 2 – 3 – Done</h2>
+        <p class="section-sub" style="margin:0 auto;">No complicated forms, no confusing steps. Just message us and we handle everything.</p>
+      </div>
+      <div class="steps-row reveal">
+        <div class="step-item">
+          <div class="step-circle">1</div>
+          <div class="step-title">Share Your Idea</div>
+          <p class="step-desc">DM us on Instagram with your idea, sketch, reference image or STL file. Anything works — no file required to start.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">2</div>
+          <div class="step-title">Get a Quote</div>
+          <p class="step-desc">We review your design, suggest materials and finish options, and give you a transparent price. No surprises.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">3</div>
+          <div class="step-title">We Print It</div>
+          <p class="step-desc">Your item goes into production. We share progress photos so you can approve before final packaging.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">4</div>
+          <div class="step-title">Delivered</div>
+          <p class="step-desc">Securely packed and shipped pan-India or internationally. Local pickup also available.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PRICING ══ -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:52px;">
+        <div class="section-label" style="justify-content:center;display:flex;">Transparent Pricing</div>
+        <h2 class="section-title">Simple, honest pricing</h2>
+        <p class="section-sub" style="margin:0 auto;">Starting prices vary by material and size. DM us for an exact quote — it's free and quick.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal reveal-d1">
+          <div class="price-material">PLA Prints</div>
+          <p class="price-desc">Best for decorative items, gifts, prototypes and everyday objects. Lightweight and easy to post-process.</p>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">₹99</div>
+          <div class="price-unit">per piece (size dependent)</div>
+          <ul class="price-features">
+            <li>10+ colour options</li>
+            <li>Good surface finish</li>
+            <li>Fast print time</li>
+            <li>Best for gifts & décor</li>
+          </ul>
+          <a href="https://instagram.com/desiynlabs.in" target="_blank">
+            <button class="btn-price">Get Exact Quote →</button>
+          </a>
+        </div>
+        <div class="price-card featured reveal reveal-d2">
+          <div class="price-popular">Most Popular</div>
+          <div class="price-material">Resin Prints</div>
+          <p class="price-desc">Ultra-high detail for miniatures, figurines, jewellery and intricate models. Smooth, photo-quality output.</p>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">₹199</div>
+          <div class="price-unit">per piece (size dependent)</div>
+          <ul class="price-features">
+            <li>Ultra-fine detail</li>
+            <li>Smooth surface finish</li>
+            <li>Perfect for figurines</li>
+            <li>Paint-ready surface</li>
+          </ul>
+          <a href="https://instagram.com/desiynlabs.in" target="_blank">
+            <button class="btn-price">Get Exact Quote →</button>
+          </a>
+        </div>
+        <div class="price-card reveal reveal-d3">
+          <div class="price-material">Engineering Grade</div>
+          <p class="price-desc">PETG, ABS, ASA, Nylon for functional parts that need strength, heat resistance or chemical resistance.</p>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">₹249</div>
+          <div class="price-unit">per piece (size dependent)</div>
+          <ul class="price-features">
+            <li>High strength & durability</li>
+            <li>Heat & chemical resistant</li>
+            <li>Ideal for working parts</li>
+            <li>Multiple material grades</li>
+          </ul>
+          <a href="https://instagram.com/desiynlabs.in" target="_blank">
+            <button class="btn-price">Get Exact Quote →</button>
+          </a>
+        </div>
+      </div>
+      <div class="pricing-note reveal">
+        💡 <strong>Final price depends on size, complexity, material and finish.</strong> Send us your file or describe your idea on Instagram for a free, no-obligation quote within a few hours.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SHARE FILE ══ -->
+  <section class="upload-section" id="upload">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:48px;">
+        <div class="section-label" style="justify-content:center;display:flex;">Got a 3D File?</div>
+        <h2 class="section-title">Share your file on Instagram</h2>
+        <p class="section-sub" style="margin:0 auto;">Just DM us your STL, OBJ or any 3D file directly on Instagram and we'll get back with a quote fast. Simple as that.</p>
+      </div>
+
+      <div class="share-cards reveal">
+        <div class="share-step-card">
+          <div class="share-step-num">1</div>
+          <div class="share-step-icon">📁</div>
+          <div class="share-step-title">Have your file ready</div>
+          <p class="share-step-desc">Supported formats: <strong>STL, OBJ, 3MF, STEP, FBX</strong> — or just share a sketch, photo or description. No file? No problem at all.</p>
+        </div>
+        <div class="share-step-card">
+          <div class="share-step-num">2</div>
+          <div class="share-step-icon">📩</div>
+          <div class="share-step-title">DM us on Instagram</div>
+          <p class="share-step-desc">Open our Instagram, tap Message, and attach your file directly in the DM. Instagram supports file attachments — super easy.</p>
+        </div>
+        <div class="share-step-card">
+          <div class="share-step-num">3</div>
+          <div class="share-step-icon">💬</div>
+          <div class="share-step-title">Get your quote</div>
+          <p class="share-step-desc">We'll review your file and reply with material options, pricing and estimated delivery. Usually within a few hours.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:40px;" class="reveal">
+        <a class="btn-primary" href="https://instagram.com/desiynlabs.in" target="_blank" style="display:inline-flex;font-size:16px;padding:16px 40px;">
+          📩 &nbsp;Share Your File on Instagram
+        </a>
+        <p style="margin-top:14px;font-size:13px;color:var(--text3);">Don't have a file? Just describe your idea — we'll handle the rest.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-photo reveal">🖨️</div>
+        <div class="about-text">
+          <div class="section-label reveal">About Desiyn Labs</div>
+          <h2 class="section-title reveal">We're makers, just like you</h2>
+          <div class="about-location reveal">
+            📍 &nbsp;Based in INDIA &nbsp;·&nbsp; Shipping Worldwide
+          </div>
+          <blockquote class="about-quote reveal">
+            "We started Desiyn Labs because we believed everyone deserves access to high-quality custom manufacturing — not just big companies."
+          </blockquote>
+          <p class="about-para reveal">
+            We're a small, passionate 3D printing studio run by people who love making things. We started with a single printer and a big idea: make custom manufacturing accessible to students, small businesses, and everyday people across India.
+          </p>
+          <p class="about-para reveal">
+            Today we work with customers from college students in Pune to product designers in Toronto — all connected through a love for bringing ideas into the physical world. Every order gets personal attention. No assembly lines, no faceless factories.
+          </p>
+          <a class="btn-primary reveal" href="https://instagram.com/desiynlabs.in" target="_blank" style="margin-top:8px;display:inline-flex;">
+            Say Hello on Instagram →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:48px;">
+        <div class="section-label" style="justify-content:center;display:flex;">FAQ</div>
+        <h2 class="section-title">Questions we get a lot</h2>
+      </div>
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">What file formats do you accept?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>We accept STL, OBJ, 3MF, STEP and FBX files. STL is the most common for 3D printing. If you have a design in another format like Fusion 360, SolidWorks or Blender, just share the native file and we'll work with it. No file? No problem — just describe your idea and we can model it for you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">How long does delivery take?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>Most standard orders are printed and shipped within 2–3 business days. Complex or large prints may take 4–5 days. Pan-India shipping typically adds 2–4 days. International orders (USA, Canada, UK) usually take 7–14 days via tracked courier. Urgent orders can be prioritised — just ask us.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">What materials are available?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>We offer PLA (great for gifts and décor), PETG (flexible and tough), ABS (heat resistant), ASA (weather resistant), Nylon, and various Resin types (standard and high-detail). Each material has different properties suited to different applications. Tell us what your print needs to do and we'll recommend the right material.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">Can I order in bulk?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>Yes! We handle bulk orders for businesses, events, and gifting. Bulk orders (10+ pieces) often get better pricing per unit. Send us details about your quantity and requirements on Instagram and we'll give you a custom bulk quote.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">How do I pay?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>For Indian customers: UPI (GPay, PhonePe, Paytm), bank transfer, or cash on local pickup. For international orders: we accept international bank transfers and card payments via Razorpay. All transactions are fully secure. We typically ask for 50% advance and 50% before shipping.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-text">I don't have a 3D file. Can you still help me?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <p>Absolutely! Just describe your idea, share a sketch, or send a reference photo. We can create the 3D model for you at a small additional charge, or help you find a suitable existing design. Just DM us on Instagram — no idea is too vague to start a conversation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DOMAIN SALE ══ -->
+  <section class="domain-section" id="domain">
+    <div class="container">
       <div class="reveal">
-        <div class="sec-label">A Note — We're Rebranding</div>
+        <div class="section-label">A Note From Us</div>
       </div>
-      <div class="domain-box reveal">
-        <div class="domain-ribbon">FOR SALE</div>
-        <div class="domain-watermark">DL</div>
-
-        <div class="domain-eyebrow">Domain Available for Purchase or Transfer</div>
-
-        <h2 class="domain-heading">
-          Desiyn Labs is evolving.<br /><em>desiynlabs.in</em> is now available.
+      <div class="domain-card reveal">
+        <div class="domain-badge">🔄 Rebranding Soon</div>
+        <h2 class="domain-h">
+          <span>desiynlabs.in</span> is available for purchase
         </h2>
-
-        <p class="domain-body">
-          We're moving forward under a new brand identity. As part of this change, our current domain <strong>desiynlabs.in</strong> — plus several similar premium domains in both <strong>.in</strong> and <strong>.com</strong> extensions — is available for purchase or seamless transfer. These are clean, memorable, highly brandable names perfect for design studios, tech startups, creative agencies, or SaaS products wanting a strong digital presence from day one.
+        <p class="domain-p">
+          Desiyn Labs is moving forward under a fresh new brand identity. As part of this change, our current domain <strong>desiynlabs.in</strong> — plus similar premium domains in both <strong>.in</strong> and <strong>.com</strong> extensions — is available for purchase or seamless transfer. Clean, brandable names in the design and tech space. Perfect for agencies, studios, or any brand wanting a strong digital identity.
         </p>
-
         <div class="domain-tags">
-          <div class="dtag star">desiynlabs.in ✦</div>
-          <div class="dtag">desiynlabs.com</div>
-          <div class="dtag">Similar .in variants</div>
-          <div class="dtag">Similar .com variants</div>
+          <div class="domain-tag hot">desiynlabs.in ✦</div>
+          <div class="domain-tag">desiynlabs.com</div>
+          <div class="domain-tag">Similar .in variants</div>
+          <div class="domain-tag">Similar .com variants</div>
         </div>
-
-        <p class="domain-quote">
-          "Pricing is flexible — it will genuinely not burn a hole in your pocket. Just reach out on Instagram and let's have a quick chat. Transfer is fast, clean, and completely hassle-free."
-        </p>
-
+        <blockquote class="domain-quote">
+          "Pricing is flexible and genuinely won't burn a hole in your pocket. Just reach out on Instagram — transfer is fast, clean, and hassle-free."
+        </blockquote>
         <div class="domain-chips">
-          <div class="dchip"><span class="dchip-dot"></span>Very affordable pricing</div>
-          <div class="dchip"><span class="dchip-dot"></span>Fast & clean transfer</div>
-          <div class="dchip"><span class="dchip-dot"></span>Both .in & .com available</div>
-          <div class="dchip"><span class="dchip-dot"></span>Negotiate directly — no middleman</div>
+          <div class="dchip">Very affordable pricing</div>
+          <div class="dchip">Fast & clean transfer</div>
+          <div class="dchip">Both .in & .com available</div>
+          <div class="dchip">Negotiate directly — no middleman</div>
         </div>
-
-        <a class="btn-domain" href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">
-          <span>Enquire on Instagram →</span>
+        <a class="btn-primary" href="https://instagram.com/desiynlabs.in" target="_blank">
+          Enquire on Instagram →
         </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ══ FOOTER ══ -->
-    <footer class="footer reveal">
-      <div class="footer-top">
+  <!-- ══ CTA BANNER ══ -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Ready to print your idea?</h2>
+      <p>DM us on Instagram with your idea, sketch or file — we'll reply fast.</p>
+      <div class="cta-banner-btns">
+        <a class="btn-white" href="https://instagram.com/desiynlabs.in" target="_blank">
+          📩 &nbsp;Message Us on Instagram
+        </a>
+        <a class="btn-outline-white" href="#upload">
+          📁 &nbsp;Share Your File
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
         <div>
-          <div class="footer-brand">Desiyn<span>&nbsp;Labs</span></div>
-          <div class="footer-tagline">कस्टम 3D प्रिंटिंग सेवाएं</div>
+          <div class="footer-brand-name">Desiyn<span>Labs</span></div>
+          <p class="footer-tagline">Professional custom 3D printing services from India. Bringing your ideas to life — one layer at a time.</p>
+          <div class="footer-contact-item">📍 &nbsp;Based in INDIA</div>
+          <div class="footer-contact-item">📸 &nbsp;<a href="https://instagram.com/desiynlabs.in" target="_blank">@desiynlabs.in</a></div>
+          <div class="footer-contact-item">🌐 &nbsp;<a href="https://desiynlabs.in">desiynlabs.in</a></div>
         </div>
-        <nav class="footer-nav">
-          <a href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">Place an Order</a>
-          <a href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">International Buyers</a>
-          <a href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">Domain for Sale</a>
-          <a href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">Contact Us</a>
-        </nav>
-        <div class="footer-contact">
-          Based in India 🇮🇳<br />
-          Ships across India &amp; Worldwide<br />
-          <a href="https://instagram.com/desiynlabs.in" target="_blank" rel="noopener">@desiynlabs.in</a> on Instagram<br />
-          <a href="https://desiynlabs.in">desiynlabs.in</a>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#top">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#upload">Share a File</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">We Print</div>
+          <ul class="footer-links">
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Parts & Prototypes</a></li>
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Figurines & Models</a></li>
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Home Décor</a></li>
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Personalised Gifts</a></li>
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Architectural Models</a></li>
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Custom Orders</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <ul class="footer-links">
+            <li><a href="https://instagram.com/desiynlabs.in" target="_blank">Instagram DM</a></li>
+            <li><a href="#domain">Domain for Sale</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">© 2025 Desiyn Labs · All rights reserved · desiynlabs.in</div>
-        <div class="footer-flags">
-          🇮🇳 🇺🇸 🇨🇦 🇬🇧 🇦🇺
-          <span>We ship worldwide</span>
-        </div>
+        <div class="footer-copy">© 2025 Desiyn Labs. All rights reserved. &nbsp;·&nbsp; desiynlabs.in</div>
+        <div class="footer-flags">INDIA 🇺🇸 🇨🇦 🇬🇧 🇦🇺 &nbsp; We ship worldwide</div>
       </div>
-    </footer>
-
-  </div>
+    </div>
+  </footer>
 
   <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Hamburger menu
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('nav-mobile');
+    ham.addEventListener('click', () => {
+      mob.classList.toggle('open');
+    });
+    // Close on link click
+    mob.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mob.classList.remove('open'));
+    });
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
     // Scroll reveal
-    const els = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.09 });
-    els.forEach(el => obs.observe(el));
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => obs.observe(el));
   </script>
-
 </body>
 </html>
